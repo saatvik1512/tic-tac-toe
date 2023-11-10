@@ -10,5 +10,24 @@ function gameBoard(){
         }
     }
 
-    return board;
+    /*
+    you have to make a function which takes a argument (either 1 or 2) and then prints a updated array
+    
+    */
+   const filler = () => {
+    board = board.filter((elements) => {
+        return elements.filter((item) => {
+            if(item == 0){
+                item = 'x';
+            }
+        })
+    })
+    return board
+   }
+
+   return {
+    board, filler
+   }
 }
+
+console.log(gameBoard())
