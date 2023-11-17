@@ -9,6 +9,6 @@
     flex-direction: column;
 }
 
-.main-container div{
+.main-container > div{
     display: flex;
 }

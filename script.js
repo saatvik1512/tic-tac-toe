@@ -1,43 +1,10 @@
-//1. a new board is generated
-    //1.1 Create a function which generates a new board everytime restart button is created
-/*
-[
-    [0,0,0]
-    [0,0,0]
-    [0,0,0]
-]
-
-2. Both players score is zero currently
-3. Current player is player1
-4. Player1 draws 'x' at [1][1]
-
-[
-    [0,0,0]
-    [0,X,0]
-    [0,0,0]
-]
-
-5. Now, current players is player2
-6. Player2 draws 'o' at [0][1]
-
-[
-    [0,O,0]
-    [0,X,0]
-    [0,0,0]
-]
-
-7. Current player switches back to player1
-8. Repeat from step 2 until any players win and once wins update that player score;
-*/
-
 function generateBoard(){
-    return board = [
+    let board = [
         [0,0,0],
         [0,0,0],
         [0,0,0]
     ];
-
-
+    return board;
 }
 
 
@@ -52,10 +19,23 @@ function generatePlayer(name, token){
     }
 }
 
-function gameController(){
+function PlayRound(){
+    console.log('Welcome to our new round')
     const newBoard = generateBoard();
-    const player1 = generateBoard('player1', 'X');
-    const player2 = generateBoard('player2', 'O');
+    const player1 = generatePlayer('player1', 'X');
+    const player2 = generatePlayer('player2', 'O');
 
-    let CurrentActivePlayer = player1;
-}
+    //take active player as player 1 for now
+    let activePlayer = player1;
+
+    //now we want to invoke a function continuosly until game is won by a player and round
+        //function will take parameters of newboard and active player
+            //starts nested loop and places X on [0][0]
+                //then checks
+                    //if currentplayer is 1
+                        //switch to player 2
+                    //else => continue filling the loop
+    //continuosly player will switch and will mark on board
+
+
+};
