@@ -21,12 +21,15 @@ function generatePlayer(name, token){
 
 function PlayRound(){
     console.log('Welcome to our new round')
-    const newBoard = generateBoard();
+    let newBoard = generateBoard();
     const player1 = generatePlayer('player1', 'X');
     const player2 = generatePlayer('player2', 'O');
 
     //take active player as player 1 for now
     let activePlayer = player1;
+
+    const returnedGame = playGame(newBoard, activePlayer, player1, player2);
+    console.log(returnedGame);
 
     //now we want to invoke a function continuosly until game is won by a player and round
         //function will take parameters of newboard and active player
@@ -36,6 +39,17 @@ function PlayRound(){
                         //switch to player 2
                     //else => continue filling the loop
     //continuosly player will switch and will mark on board
+    
+
+};
 
 
+function playGame(newBoard, activePlayer, player1, player2){
+    for (let i = 0; i < newBoard.length; i++){
+        for (let j = 0; j < newBoard.length; j++){
+            newBoard[i][j] = activePlayer.token;
+            activePlayer == player1 ? activePlayer = player2 : activePlayer = player1;
+        }
+    }
+    return `${newBoard} and current player is ${activePlayer.name}`;
 };
