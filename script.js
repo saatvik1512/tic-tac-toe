@@ -49,7 +49,23 @@ function playGame(newBoard, activePlayer, player1, player2){
         for (let j = 0; j < newBoard.length; j++){
             newBoard[i][j] = activePlayer.token;
             activePlayer == player1 ? activePlayer = player2 : activePlayer = player1;
+            console.log(checkforWin(newBoard))
         }
     }
-    return `${newBoard} and current player is ${activePlayer.name}`;
+    return newBoard;
 };
+
+function checkforWin(newBoard){
+    let sameTOken;
+    //for each row
+        // if row contains all same elements => return 'TRUE'
+    for (let i = 0; i < 3; i++){
+        sameTOken = newBoard[i][0]
+        if(newBoard[i].every((element) => sameTOken === element)){
+            return 'everyselement'
+        }
+        else {
+            return 'everyelemtnisnotsame you are right'
+        }
+    }
+}
