@@ -20,7 +20,7 @@ function generatePlayer(name, token){
 }
 
 function PlayRound(){
-    console.log('Welcome to our new round')
+    console.log('NewRound, type placeToken to place your tokens')
     let newBoard = generateBoard();
     const player1 = generatePlayer('player1', 'X');
     const player2 = generatePlayer('player2', 'O');
