@@ -45,13 +45,15 @@ function PlayRound(){
 
 
 function playGame(newBoard, activePlayer, player1, player2){
+    let score = 0;
     for (let i = 0; i < newBoard.length; i++){
         for (let j = 0; j < newBoard.length; j++){
             newBoard[i][j] = activePlayer.token;
+            score++;
             activePlayer == player1 ? activePlayer = player2 : activePlayer = player1;
-            console.log(checkforWin(newBoard))
         }
     }
+    console.log(checkforWin(newBoard))
     return newBoard;
 };
 
@@ -62,10 +64,13 @@ function checkforWin(newBoard){
     for (let i = 0; i < 3; i++){
         sameTOken = newBoard[i][0]
         if(newBoard[i].every((element) => sameTOken === element)){
-            return 'everyselement'
+            return 'row elements are same'
         }
-        else {
-            return 'everyelemtnisnotsame you are right'
+    }
+    for (let j = 0; j < 3; j++){
+        sameTOken = newBoard[0][j];
+        if (newBoard[0][j] === newBoard[1][j] === newBoard[2][j]){
+            return 'column elements are same';
         }
     }
 }
