@@ -32,9 +32,27 @@ function PlayRound(){
         return activePlayer;
     }
 
+    const checkforWin = (newBoard) => {
+        let sameTOken;
+        for (let i = 0; i < 3; i++){
+            sameTOken = newBoard[i][0]
+            if(newBoard[i].every((element) => sameTOken === element)){
+                return sameTOken
+            }
+            else if (newBoard[0][i] === newBoard[1][i] === newBoard[2][i]){
+                sameTOken = newBoard[0][i];
+                return sameTOken;
+            }
+            else {
+                return false;
+            }
+        }
+
+    }
+
 
     return{
-        newBoard, player1, player2, activePlayer, switchPlayer
+        newBoard, player1, player2, activePlayer, switchPlayer, checkforWin
     }
 
     //now we want to invoke a function continuosly until game is won by a player and round
@@ -49,25 +67,6 @@ function PlayRound(){
 
 };
 
-
-function checkforWin(newBoard){
-    let sameTOken;
-    //for each row
-        // if row contains all same elements => return 'TRUE'
-    for (let i = 0; i < 3; i++){
-        sameTOken = newBoard[i][0]
-        if(newBoard[i].every((element) => sameTOken === element)){
-            return 'row elements are same'
-        }
-    }
-    for (let j = 0; j < 3; j++){
-        sameTOken = newBoard[0][j];
-        if (newBoard[0][j] === newBoard[1][j] === newBoard[2][j]){
-            return 'column elements are same';
-        }
-    }
-}
-
 (function domController(){
     const allnodes = document.querySelectorAll("div.main-container > div")
     const newGame = PlayRound();
@@ -78,12 +77,17 @@ function checkforWin(newBoard){
             allnodes[index].dataset.col = j;
         }
     }
+    let clickTimes = 0;
 
     allnodes.forEach((e) => {
         e.addEventListener('click', () => {
             newGame.newBoard[e.dataset.row][e.dataset.col] = newGame.activePlayer.token
             e.innerHTML = newGame.activePlayer.token;
             newGame.activePlayer = newGame.switchPlayer();
+            clickTimes++
+            if(clickTimes == 5){
+                newGame.checkforWin(newGame.newBoard) == 'X' ? console.log('Player 1 won'): console.log('player 2 lost')
+            }
         })
     })
 })()
