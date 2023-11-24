@@ -1,8 +1,8 @@
 function generateBoard(){
     let board = [
-        [0,0,0],
-        [0,0,0],
-        [0,0,0]
+        ['','',''],
+        ['','',''],
+        ['','','']
     ];
     return board;
 }
@@ -20,7 +20,6 @@ function generatePlayer(name, token){
 }
 
 function PlayRound(){
-    console.log('NewRound, type placeToken to place your tokens')
     let newBoard = generateBoard();
     const player1 = generatePlayer('player1', 'X');
     const player2 = generatePlayer('player2', 'O');
@@ -28,8 +27,10 @@ function PlayRound(){
     //take active player as player 1 for now
     let activePlayer = player1;
 
-    const returnedGame = playGame(newBoard, activePlayer, player1, player2);
-    console.log(returnedGame);
+
+    return{
+        newBoard, player1, player2, activePlayer
+    }
 
     //now we want to invoke a function continuosly until game is won by a player and round
         //function will take parameters of newboard and active player
@@ -74,3 +75,23 @@ function checkforWin(newBoard){
         }
     }
 }
+
+(function domController(){
+
+    const allnodes = document.querySelectorAll("div.main-container > div")
+    const newGame = PlayRound();
+    let index = 0;
+    for(let i = 0; i < 3; i++){
+        for (let j = 0; j < 3 && index < 9; j++, index++){
+            allnodes[index].dataset.row = i;
+            allnodes[index].dataset.col = j;
+        }
+    }
+
+    allnodes.forEach((e) => {
+        e.addEventListener('click', () => {
+            newGame.newBoard[e.dataset.row][e.dataset.col] = newGame.activePlayer.token
+            e.innerHTML = newGame.activePlayer.token;
+        })
+    })
+})()

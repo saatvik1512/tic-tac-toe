@@ -1,14 +1,11 @@
-.main-container div div {
+.main-container div {
     border: 1px solid;
-    padding: 1rem;
+    padding: 2rem;
     font-size: 1.1rem;
 }
 
 .main-container{
-    display: flex;
-    flex-direction: column;
-}
-
-.main-container > div{
-    display: flex;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    max-width: 300px;
 }
