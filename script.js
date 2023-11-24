@@ -27,9 +27,14 @@ function PlayRound(){
     //take active player as player 1 for now
     let activePlayer = player1;
 
+    const switchPlayer = () => {
+        activePlayer == player1 ? activePlayer = player2 : activePlayer = player1;
+        return activePlayer;
+    }
+
 
     return{
-        newBoard, player1, player2, activePlayer
+        newBoard, player1, player2, activePlayer, switchPlayer
     }
 
     //now we want to invoke a function continuosly until game is won by a player and round
@@ -44,19 +49,6 @@ function PlayRound(){
 
 };
 
-
-function playGame(newBoard, activePlayer, player1, player2){
-    let score = 0;
-    for (let i = 0; i < newBoard.length; i++){
-        for (let j = 0; j < newBoard.length; j++){
-            newBoard[i][j] = activePlayer.token;
-            score++;
-            activePlayer == player1 ? activePlayer = player2 : activePlayer = player1;
-        }
-    }
-    console.log(checkforWin(newBoard))
-    return newBoard;
-};
 
 function checkforWin(newBoard){
     let sameTOken;
@@ -77,7 +69,6 @@ function checkforWin(newBoard){
 }
 
 (function domController(){
-
     const allnodes = document.querySelectorAll("div.main-container > div")
     const newGame = PlayRound();
     let index = 0;
@@ -92,6 +83,7 @@ function checkforWin(newBoard){
         e.addEventListener('click', () => {
             newGame.newBoard[e.dataset.row][e.dataset.col] = newGame.activePlayer.token
             e.innerHTML = newGame.activePlayer.token;
+            newGame.activePlayer = newGame.switchPlayer();
         })
     })
 })()
