@@ -33,15 +33,15 @@ function PlayRound(){
     }
 
     const checkforWin = (newBoard) => {
-        let sameTOken;
+        let sameToken;
         for (let i = 0; i < 3; i++){
-            sameTOken = newBoard[i][0]
-            if(newBoard[i].every((element) => sameTOken === element)){
-                return sameTOken
+            sameToken = newBoard[i][0]
+            if(newBoard[i].every((element) => sameToken === element)){
+                return true
             }
             else if (newBoard[0][i] === newBoard[1][i] === newBoard[2][i]){
-                sameTOken = newBoard[0][i];
-                return sameTOken;
+                sameToken = newBoard[0][i];
+                return true;
             }
             else {
                 return false;
@@ -67,6 +67,10 @@ function PlayRound(){
 
 };
 
+function windows_reload(){
+    window.location.reload()
+}
+
 (function domController(){
     const allnodes = document.querySelectorAll("div.main-container > div")
     const newGame = PlayRound();
@@ -83,11 +87,13 @@ function PlayRound(){
         e.addEventListener('click', () => {
             newGame.newBoard[e.dataset.row][e.dataset.col] = newGame.activePlayer.token
             e.innerHTML = newGame.activePlayer.token;
-            newGame.activePlayer = newGame.switchPlayer();
             clickTimes++
-            if(clickTimes == 5){
-                newGame.checkforWin(newGame.newBoard) == 'X' ? console.log('Player 1 won'): console.log('player 2 lost')
+            if(clickTimes >= 5){
+                 if (newGame.checkforWin(newGame.newBoard) == true){
+                    console.log(`${newGame.activePlayer.name} wins with token ${newGame.activePlayer.token} and has a current score of `)
+                 }
             }
+            newGame.activePlayer = newGame.switchPlayer();
         })
     })
 })()
