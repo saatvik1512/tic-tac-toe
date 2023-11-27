@@ -9,7 +9,7 @@ function generateBoard(){
 
 
 function generatePlayer(name, token){
-    let score = 0;
+    let score = 1;
     const incScore = () => {
         return score++;
     };
@@ -33,38 +33,17 @@ function PlayRound(){
     }
 
     const checkforWin = (newBoard) => {
-        let sameToken;
         for (let i = 0; i < 3; i++){
-            sameToken = newBoard[i][0]
-            if(newBoard[i].every((element) => sameToken === element)){
-                return true
-            }
-            else if (newBoard[0][i] === newBoard[1][i] === newBoard[2][i]){
-                sameToken = newBoard[0][i];
-                return true;
-            }
-            else {
-                return false;
+            if (!newBoard[i].includes('') || newBoard[i][i] != ''){
+                if(newBoard[i].every((element) => newBoard[i][0] === element) || (newBoard[0][i] == newBoard[1][i] && newBoard[0][i] == newBoard[2][i])){
+                    return true;
+                }
             }
         }
-
     }
-
-
-    return{
+        return{
         newBoard, player1, player2, activePlayer, switchPlayer, checkforWin
     }
-
-    //now we want to invoke a function continuosly until game is won by a player and round
-        //function will take parameters of newboard and active player
-            //starts nested loop and places X on [0][0]
-                //then checks
-                    //if currentplayer is 1
-                        //switch to player 2
-                    //else => continue filling the loop
-    //continuosly player will switch and will mark on board
-    
-
 };
 
 function windows_reload(){
@@ -73,6 +52,7 @@ function windows_reload(){
 
 (function domController(){
     const allnodes = document.querySelectorAll("div.main-container > div")
+    const restart_button = document.querySelector('.restart');
     const newGame = PlayRound();
     let index = 0;
     for(let i = 0; i < 3; i++){
@@ -85,15 +65,20 @@ function windows_reload(){
 
     allnodes.forEach((e) => {
         e.addEventListener('click', () => {
-            newGame.newBoard[e.dataset.row][e.dataset.col] = newGame.activePlayer.token
-            e.innerHTML = newGame.activePlayer.token;
-            clickTimes++
-            if(clickTimes >= 5){
-                 if (newGame.checkforWin(newGame.newBoard) == true){
-                    console.log(`${newGame.activePlayer.name} wins with token ${newGame.activePlayer.token} and has a current score of `)
-                 }
+            if (e.innerHTML == ''){
+                newGame.newBoard[e.dataset.row][e.dataset.col] = newGame.activePlayer.token
+                e.innerHTML = newGame.activePlayer.token;
+                clickTimes++
+                if(clickTimes >= 5){
+                    if (newGame.checkforWin(newGame.newBoard) == true){
+                        console.log(`${newGame.activePlayer.name} wins with token ${newGame.activePlayer.token} and has a score of ${newGame.activePlayer.incScore()}`)
+                    }
+                }
+                newGame.activePlayer = newGame.switchPlayer();
             }
-            newGame.activePlayer = newGame.switchPlayer();
         })
+    })
+    restart_button.addEventListener('click', ()=> {
+        windows_reload();
     })
 })()

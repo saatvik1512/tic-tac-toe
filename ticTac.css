@@ -9,3 +9,14 @@
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     max-width: 300px;
 }
+
+.restart {
+    padding: 0.4rem 0.9rem;
+    background-color: blue;
+    color: white;
+    font-size: 1rem;
+    margin: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
