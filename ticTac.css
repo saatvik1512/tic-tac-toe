@@ -1,3 +1,11 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
 .main-container div {
     border: 1px solid;
     padding: 2rem;
@@ -19,4 +27,9 @@
     border-radius: 10px;
     border: none;
     cursor: pointer;
+}
+
+.all_parameters {
+    display: flex;
+    gap: 1rem;
 }
