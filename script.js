@@ -38,11 +38,22 @@ function PlayRound(){
                 if(newBoard[i].every((element) => newBoard[i][0] === element) || (newBoard[0][i] == newBoard[1][i] && newBoard[0][i] == newBoard[2][i])){
                     return true;
                 }
+
+                if ((newBoard[0][0] == newBoard[1][1] && newBoard[1][1] == newBoard[2][2]) || newBoard[0][2] == newBoard[1][1] && newBoard[1][1] == newBoard[2][0]){
+                    return true;
+                }
             }
         }
     }
+
+    const whoWins = (winner) => {
+        const element = document.createElement('h3');
+        const father = document.querySelector('.father')
+        element.textContent = `The player with token ${winner.token} has won this game`;
+        father.appendChild(element)
+    }
         return{
-        newBoard, player1, player2, activePlayer, switchPlayer, checkforWin
+        newBoard, player1, player2, activePlayer, switchPlayer, checkforWin, whoWins
     }
 };
 
@@ -64,14 +75,14 @@ function windows_reload(){
     let clickTimes = 0;
 
     allnodes.forEach((e) => {
-        e.addEventListener('click', () => {
+        e.addEventListener('click', (event) => {
             if (e.innerHTML == ''){
                 newGame.newBoard[e.dataset.row][e.dataset.col] = newGame.activePlayer.token
                 e.innerHTML = newGame.activePlayer.token;
                 clickTimes++
                 if(clickTimes >= 5){
                     if (newGame.checkforWin(newGame.newBoard) == true){
-                        console.log(`${newGame.activePlayer.name} wins with token ${newGame.activePlayer.token} and has a score of ${newGame.activePlayer.incScore()}`)
+                        newGame.whoWins(newGame.activePlayer);
                     }
                 }
                 newGame.activePlayer = newGame.switchPlayer();
